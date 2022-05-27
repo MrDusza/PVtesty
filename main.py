@@ -24,12 +24,14 @@ def change_of_fill_factor():
     print('Współczynnik wypełnienia:', fill_value, '%')
     
 def power_value():
-    resistance = 7
+    resistance = 6.8
     mA_per_bit = 31.03
+    reference_value = 812
+    reference_diff = reference_value - adc.read()
     
     n_factor = fill_value / 100
     
-    average_current_value = mA_per_bit * adc.read()
+    average_current_value = mA_per_bit * reference_diff
     max_current_value = average_current_value / n_factor
     effective_current_value = sqrt(n_factor) * max_current_value
     
