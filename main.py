@@ -26,8 +26,8 @@ def change_of_fill_factor():
 def power_value():
     resistance = 6.8
     mA_per_bit = 31.03
-    reference_adc_value = 811
-    reference_adc_diff = reference_adc_value - adc.read()
+    reference_adc_value = 809
+    reference_adc_diff = reference_adc_value - kalman_filter(adc.read())
     
     n_factor = fill_value / 100
     
@@ -49,8 +49,33 @@ def power_value():
     print('Wartość skuteczna napięcia', effective_voltage_value, 'V')
     print('Moc', power_value, 'W')
      
+def kalman_filter(adc_value):
+    global kalman_adc_old
+    global P1
+    global Q
+    global R
+    global Kg
+    global P 
+    
+    NowData =  adc_value
+    LastData = kalman_adc_old
+    P = P1 + Q
+    Kg = P / (P + R)
+    kalman_adc = LastData + Kg * (NowData - kalman_adc_old)
+    P1 = (1 - Kg) * P
+    P = P1
+    kalman_adc_old = kalman_adc
+    
+    return kalman_adc
+     
 fill_value = 50
-
+kalman_adc_old = 0
+P1 = 0
+Q = 0.01        #0.0003
+R = 5
+Kg = 0
+P = 1
+    
 while True:
     print('adc read', adc.read())
     change_of_fill_factor()
