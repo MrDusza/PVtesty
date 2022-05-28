@@ -26,8 +26,8 @@ def change_of_fill_factor():
 def power_value():
     resistance = 6.8
     mA_per_bit = 31.03
-    reference_value = 812
-    reference_diff = reference_value - adc.read()
+    reference_adc_value = 812
+    reference_adc_diff = reference_adc_value - adc.read()
     
     n_factor = fill_value / 100
     
