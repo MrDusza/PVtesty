@@ -4,6 +4,18 @@ grzałka 3kW 230V jej rezystancja około 17,63 ohm
 przy maksymalnej mocy 10,68A i 34,2V
 czyli dla mnie 10,68A, 205,2V i 2191W 
 
+4 x tranzystor mocy https://www.tme.eu/pl/details/wmj25n80m3-cyg/tranzystory-z-kanalem-n-tht/wayon/wmj25n80m3/
+
+2 x regulator napięcia https://www.tme.eu/pl/details/lm340t-5.0_lf01/stabilizatory-napiecia-nieregulowane-ldo/texas-instruments/
+
+2 x moduł ładowarki ogniw https://allegro.pl/oferta/ladowarka-li-ion-li-pol-tp4056-micro-zabezpieczeni-8847424529?bi_s=ads&bi_m=listing%3Adesktop%3Aquery&bi_c=NWNhZWU2Y2UtMzAzOS00NTljLWE2OGYtMjRlNGQ4ZWRmMTlkAA&bi_t=ape&referrer=proxy&emission_unit_id=dc4bda77-745b-40f4-9801-068ef4eee0e3
+
+1 x radiator wstępnie taki https://allegro.pl/oferta/fischer-radiator-84x55x28mm-to220-to3p-9355022331
+
+5 x konektor mc4 
+
+na oko 10m czarnego i 10m czerwonego kabla 4mm^2
+
 dla tej rezystancji moc maksymalna to około 2011W przy prądzie 10,68A i napięciu 188,29V
 (ciakawe jak zachowa się prąd przy troszkę wyższym napięciu (chyba powinien spaść))
 mniejsze oświetlenie panelu skutkuje mniejszym prądem (zgodnie z wykresami z noty) czyli,
