@@ -1,0 +1,16 @@
+grzałka 3kW 230V jej rezystancja około 17,63 ohm
+
+6 x panel https://www.thermika.com.pl/panele-fotowoltaiczne/603-longi-lr4-60hih-365m.html
+przy maksymalnej mocy 10,68A i 34,2V
+czyli dla mnie 10,68A, 205,2V i 2191W 
+
+dla tej rezystancji moc maksymalna to około 2011W przy prądzie 10,68A i napięciu 188,29V
+(ciakawe jak zachowa się prąd przy troszkę wyższym napięciu (chyba powinien spaść))
+mniejsze oświetlenie panelu skutkuje mniejszym prądem (zgodnie z wykresami z noty) czyli,
+dla prądu np 8A moc maksymalna wyniesie 1128W dla napięcia (które ustawimy PWM'em) 141V
+to wszystko prawdopodobnie bo dopiero mppt będzie robić swoje, bo nie wiadomo do końca dla jakiego
+napięcia i prądu panel wyciśnie z siebie 100% w danych warunkach
+
+także pomiar mocy już jest zrobiony zajebiście, teraz funkcja (włącz-wyłącz) w zależności od temperatury i
+z histerezą a potem funkcje obsługujące mppt
+
