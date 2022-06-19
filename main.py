@@ -24,7 +24,7 @@ def change_of_fill_factor():
     
 def current_value():
     mA_per_bit = 31.03
-    reference_adc_value = 811
+    reference_adc_value = 813
     reference_adc_diff = reference_adc_value - kalman_filter(adc.read())
     
     n_factor = fill_value / 100
@@ -50,7 +50,6 @@ def current_value():
 def power_value():
     resistance = 6.8
     power_value = ((current_value() / 1000) ** 2) * resistance
-    print('Moc', power_value, 'W')
     
     return power_value
 
@@ -62,22 +61,23 @@ def MPPT_algorithm():
     old_power_value = 0
     cell_number = 0
     
-    for fill_value_counter in range(0, 10):
-        fill_value_array.append(fill_value - 5 + fill_value_counter)
+    for fill_value_counter in range(0, 5):
+        fill_value_array.append(fill_value - 2 + fill_value_counter)
         
         if fill_value_array[fill_value_counter] < 2:
             fill_value_array[fill_value_counter] = 1
         elif fill_value_array[fill_value_counter] > 99:
             fill_value_array[fill_value_counter] = 100
         
-    for power_value_counter in range(0, 10):
+    for power_value_counter in range(0, 5):
         fill_value = fill_value_array[power_value_counter]
         pwm.duty(fill_value * 10)
-        for kalman_wait in range(0, 10000):
-            if kalman_wait == 9999:
+        for kalman_wait in range(0, 100):
+            power_value()
+            if kalman_wait == 99:
                 power_value_array.append(power_value())
                 
-    for highest_value_counter in range(0, 10):
+    for highest_value_counter in range(0, 5):
         current_power_value = power_value_array[highest_value_counter]
         
         if current_power_value > old_power_value:
@@ -114,7 +114,7 @@ fill_value = 50
 #-------------------Kalman's settings
 kalman_adc_old = 0
 P1 = 0
-Q = 1     #0.0003
+Q = 0.1    #0.0003
 R = 5
 Kg = 0
 P = 1
@@ -124,6 +124,6 @@ while True:
     MPPT_algorithm()
     print('adc read', adc.read())
     change_of_fill_factor()
-    power_value()
+    print('Moc', power_value(), 'W')
     print(' ')
     #sleep(0.1)
