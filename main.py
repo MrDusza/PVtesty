@@ -4,8 +4,8 @@ from lcd_api import LcdApi
 from i2c_lcd import I2cLcd
 from time import sleep
 
-current_adc = ADC(34)
-voltage_adc = ADC(35)
+current_adc = ADC(Pin(34))
+voltage_adc = ADC(Pin(35))
 
 increment_button = Pin(13, Pin.IN, Pin.PULL_UP)
 decrement_button = Pin(12, Pin.IN, Pin.PULL_UP)
@@ -44,17 +44,6 @@ V_P = 1
 #----------------------------------------------------------------------------
 #============================================================================
 
-#=============================TIMERS=========================================
-tim1 = Timer(0)
-tim1.init(period = 5000, mode = Timer.PERIODIC, callback = display)
-
-tim2 = Timer(1)
-tim2.init(period = 4500, mode = Timer.ONE_SHOT, callback = display_clear)
-
-tim3 = Timer(2)
-tim3.init(period = 10000, mode = Timer.PERIODIC, callback = read_ds_sensor)
-#============================================================================
-
 def change_of_fill_factor():
     global fill_value
    
@@ -70,7 +59,7 @@ def change_of_fill_factor():
    
 def display(Timer):
     lcd.move_to(0,0)
-    lcd.putstr("Moc: " + str(power_value) + " W     ")
+    lcd.putstr("Moc: " + str(round(power_value())) + " W     ")
     lcd.move_to(0,1)
     lcd.putstr("Temp: " + str(temp_value) + " " + chr(223) + "C")
     
@@ -84,7 +73,7 @@ def read_ds_sensor(Timer):
     for rom in roms:
         temp_value = ds_sensor.read_temp(rom)
         if isinstance(temp_value, float):
-            temp_value = round(temp, 1)
+            temp_value = round(temp_value, 1)
 
 def current_value():
     global n_factor
@@ -118,7 +107,6 @@ def voltage_value():
 def power_value():
     global fill_value
     global n_factor
-    global power_value
     
     n_factor = fill_value / 1023
     
@@ -205,12 +193,27 @@ def voltage_kalman_filter(adc_value):
     
     return V_kalman_adc
 
+#=============================TIMERS=========================================
+tim1 = Timer(0)
+tim1.init(period = 5000, mode = Timer.PERIODIC, callback = display)
+
+tim2 = Timer(1)
+tim2.init(period = 4500, mode = Timer.ONE_SHOT, callback = display_clear)
+
+tim3 = Timer(2)
+tim3.init(period = 10000, mode = Timer.PERIODIC, callback = read_ds_sensor)
+#============================================================================
+
 #================STARTUP_PARAMETERS======================
 fill_value = 512
-power_value = 0
 temp_value = 0
+n_factor = 0
+
+lcd.putstr("MPPT driver v0.1")
+lcd.move_to(0,1)
+lcd.putstr("INICJALIZACJA...")
 #========================================================
 
 while True:
     MPPT_algorithm()
-    #sleep(0.1)
+    sleep(0.1)
