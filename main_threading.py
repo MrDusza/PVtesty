@@ -16,6 +16,7 @@ def diode1():
         led1.value(0)
         sleep(0.25)
         lock1.release()
+        #_thread.exit()
         
 def diode2():
     while True:
@@ -25,6 +26,8 @@ def diode2():
         led2.value(0)
         sleep(1)
         lock2.release()
+        #_thread.exit()
         
-    
-_thread.start_new_thread(diode1(), diode2())
+while True:
+    _thread.start_new_thread(diode1, ())
+    _thread.start_new_thread(diode2, ())
