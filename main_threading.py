@@ -28,6 +28,6 @@ def diode2():
         lock2.release()
         #_thread.exit()
         
-while True:
-    _thread.start_new_thread(diode1, ())
-    _thread.start_new_thread(diode2, ())
+#while True:
+_thread.start_new_thread(diode1, ())
+_thread.start_new_thread(diode2, ())
