@@ -28,7 +28,7 @@ def change_of_fill_factor():
     
 def current_value():
     mA_per_bit = 32.258
-    reference_adc_value = 730
+    reference_adc_value = 740
     reference_adc_diff = reference_adc_value - kalman_filter(adc.read())
     
     n_factor = fill_value / 100
@@ -116,7 +116,7 @@ fill_value = 50
 #-------------------Kalman's settings
 kalman_adc_old = 0
 P1 = 0
-Q = 0.01    #0.0003
+Q = 0.001    #0.0003
 R = 5
 Kg = 0
 P = 1
